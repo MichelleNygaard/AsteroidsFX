@@ -8,6 +8,7 @@ import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import java.util.Random;
 
 public class EnemyPlugin implements IGamePluginService {
+    private Random random = new Random();
 
     @Override
     public void start(GameData gameData, World world) {
@@ -16,15 +17,6 @@ public class EnemyPlugin implements IGamePluginService {
     }
 
 
-    private Entity createEnemyShip(GameData gameData) {
-        Entity enemyShip = new Enemy();
-        enemyShip.setPolygonCoordinates(-10,-10,15,5,-10,10);
-        enemyShip.setX(gameData.getDisplayHeight()/2);
-        enemyShip.setY(gameData.getDisplayWidth()/2);
-        enemyShip.setRadius(15);
-        return enemyShip;
-    }
-
     @Override
     public void stop(GameData gameData, World world) {
         // Remove entities
@@ -32,4 +24,15 @@ public class EnemyPlugin implements IGamePluginService {
             world.removeEntity(enemy);
         }
     }
+
+    private Entity createEnemyShip(GameData gameData) {
+        Entity enemyShip = new Enemy();
+        enemyShip.setPolygonCoordinates(-10, -10, 15, 5, -10, 10);
+        enemyShip.setX(random.nextInt(gameData.getDisplayWidth()));
+        enemyShip.setY(random.nextInt(gameData.getDisplayHeight()));
+        enemyShip.setRadius(15);
+
+        return enemyShip;
+    }
+
 }
